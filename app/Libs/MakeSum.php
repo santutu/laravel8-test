@@ -11,7 +11,7 @@ class MakeSum
     {
     }
 
-    public function sum(int|string $v): int
+    public function sum(int $v): int
     {
         return $v;
 
