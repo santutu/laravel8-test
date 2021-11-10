@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,32 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
-Route::get('/test', function (\App\Libs\MakeSum $makeSum) {
-
-    $content = \App\Models\Content::firstOrFail();
-
-    $results = $makeSum->sum(123123);
-
-    return view('welcome');
-});
-Route::get('/contents/create', function () {
-    $content = new \App\Models\Content();
-    $content->content = "content1";
-    $content->title = "title1";
-    $content->author = "author1";
-    $content->save();
-
-    return $content->toJson();
-});
-
-Route::get('/contents', function () {
-    $content = \App\Models\Content::firstOrFail();
-
-    return $content->toJson();
-});
-
-
-
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->name('dashboard');
