@@ -1,3 +1,20 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+
+@layer components {
+    .btn {
+
+        border-radius: 5px;
+        background-color: #2563eb;
+        padding: 8px 15px;
+
+    }
+
+    .btn-secondary {
+        @apply btn;
+        background-color: aquamarine;
+
+    }
+}

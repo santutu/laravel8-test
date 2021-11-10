@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "esnext",
+        //        "module": "es2015",
+        "moduleResolution": "node",
+
+        "strict": true,
+        "experimentalDecorators": true,
+
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "strictNullChecks": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "suppressImplicitAnyIndexErrors": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "downlevelIteration": true
+    },
+    "include": [
+        "resources/js/**/*.vue",
+        "resources/js/**/*"
+    ]
+
+}
