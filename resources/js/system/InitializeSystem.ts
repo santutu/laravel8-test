@@ -1,6 +1,6 @@
 import {container} from "./container";
 import {injectable} from "inversify";
-import {serviceProviderClasses} from "../js/config/app";
+import {serviceProviderClasses} from "../config/app";
 
 @injectable()
 export default class InitializeSystem {

@@ -17,4 +17,12 @@
         background-color: aquamarine;
 
     }
+
+    .card {
+        @apply flex-center w-24 h-48 bg-blue-700;
+    }
+
+    .flex-center{
+        @apply flex justify-center items-center
+    }
 }

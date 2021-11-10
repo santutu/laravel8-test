@@ -16,10 +16,13 @@ mix.ts('resources/js/app.ts', 'public/js').vue()
         require('postcss-import'),
         require('tailwindcss'),
     ])
-    .webpackConfig(require('./webpack.config'));
+    .webpackConfig(require('./webpack.config'))
+    .sourceMaps(false, 'source-map');
+
 
 if (!mix.inProduction()) {
     mix.browserSync('http://localhost:8000/');
+
 }
 
 if (mix.inProduction()) {
