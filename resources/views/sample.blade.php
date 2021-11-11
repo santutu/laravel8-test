@@ -17,8 +17,8 @@
     </style>
 </head>
 <body>
-    <div>
-        test
-    </div>
+    <h>
+      This is a sample page.
+    </h>
 </body>
 </html>

@@ -8,13 +8,22 @@
 
 </style>
 
-<script>
+<script lang="ts">
 import {defineComponent} from 'vue'
 import {Head, Link} from '@inertiajs/inertia-vue3';
 
 export default defineComponent({
-    components: {},
+                                   components: {},
 
-    props: {}
-})
+                                   props: {},
+                                   mounted() {
+                                   },
+
+                                   data() {
+                                       return {}
+                                   },
+                                   computed: {},
+                                   methods: {}
+
+                               })
 </script>

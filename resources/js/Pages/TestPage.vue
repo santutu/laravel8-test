@@ -8,7 +8,8 @@
 
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-<!--            <Link :href="route('dashboard')">Go to dashboard</Link>-->
+            <Link :href="route('dashboard')">dashboard</Link>
+            <Link :href="route('test2')">test2</Link>
 
             <div class="flex flex-row flex-wrap">
                 <div @mouseup.prevent="openCard($event,card)" class="card m-2"
@@ -67,7 +68,7 @@ export default defineComponent({
                                    },
 
                                    computed: {
-                                       isAllOpen: function () : boolean {
+                                       isAllOpen: function (): boolean {
                                            return !this.cards.find((card) => !card.isOpen);
                                        }
                                    },

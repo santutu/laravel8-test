@@ -31,3 +31,32 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/', function () {
     return Inertia::render('TestPage');
 })->name('test');
+
+
+Route::get('/test2', function () {
+    return Inertia::render('Test2Page');
+})->name('test2');
+
+
+Route::get('/sample', function () {
+    return view('sample');
+});
+
+Route::post('/contents/create', function (\Illuminate\Http\Request $req) {
+
+    $content = new \App\Models\Content(
+        $req->validate([
+            'title' => ['required', 'string'],
+            'content' => ['required', 'string']
+        ])
+    );
+
+//    dd($content->toArray());
+
+    print("Fire event");
+
+    return view("sample");
+    return Inertia::render('SamplePage');
+
+    return Redirect::route('test');
+});
