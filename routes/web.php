@@ -29,8 +29,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('/', function () {
-    return Inertia::render('TestPage');
-})->name('test');
+    return Inertia::render('CardGamePage');
+})->name('card-game');
 
 
 Route::get('/test2', function () {
@@ -39,24 +39,61 @@ Route::get('/test2', function () {
 
 
 Route::get('/sample', function () {
-    return view('sample');
-});
+
+    $contents = \App\Domain\Contents\Models\Content::all();
+
+    return view('sample', [
+        'contents' => $contents
+    ]);
+})->name('sample');
+
 
 Route::post('/contents/create', function (\Illuminate\Http\Request $req) {
 
-    $content = new \App\Models\Content(
+    $content = new \App\Domain\Contents\Models\Content(
         $req->validate([
             'title' => ['required', 'string'],
             'content' => ['required', 'string']
         ])
     );
 
-//    dd($content->toArray());
+    $content->author = 'none';
+    $content->save();
 
-    print("Fire event");
+    \App\Domain\Contents\Events\ContentCreatedEvent::dispatch($content);
+
+    dd($content->toArray());
 
     return view("sample");
-    return Inertia::render('SamplePage');
-
-    return Redirect::route('test');
 });
+
+
+Route::get("/job", function () {
+    \App\Domain\Contents\Jobs\ContentJob::dispatch();
+
+    return "job";
+});
+
+
+Route::middleware(['login-by-guest'])->post("/chatroom/send-message", function (\Illuminate\Http\Request $req) {
+
+
+    $chat = new \App\Domain\Contents\Models\Chat(
+        array_merge(
+            $req->validate([
+                'message' => ['required', 'string', 'min:1']
+            ]),
+            ['user' => $req->user()]
+        )
+    );
+
+//    event(new \App\Domain\Contents\Events\ChatEvent($chat));
+    broadcast(new \App\Domain\Contents\Events\ChatEvent($chat))->toOthers();
+
+    return 1234;
+//    return Inertia::render('ChatRoomPage');
+})->name('chatroom.send-message');
+
+Route::middleware(['login-by-guest'])->get("/chatroom", function () {
+    return Inertia::render('ChatRoomPage');
+})->name('chatroom');

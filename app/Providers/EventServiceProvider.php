@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Domain\Contents\Events\ContentCreatedEvent;
+use App\Domain\Contents\Listeners\ContentCreatedListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -28,5 +30,18 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+    }
+
+    protected function discoverEventsWithin(): array
+    {
+        return [
+            $this->app->path('Listeners'),
+            $this->app->path('Domain'),
+        ];
+    }
+
+    public function shouldDiscoverEvents(): bool
+    {
+        return true;
     }
 }

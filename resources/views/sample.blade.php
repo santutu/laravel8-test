@@ -10,15 +10,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
 
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+
 </head>
 <body>
+<div>
     <h>
-      This is a sample page.
+        This is a sample page.
     </h>
+
+    <div>
+        @if(isset($contents))
+            @foreach($contents as $content)
+
+                <div class="flex flex-row">
+                    <div>{{$content->title}}</div>
+                    <div>{{$content->content}}</div>
+                    <div>{{$content->author}}</div>
+                </div>
+            @endforeach
+
+        @endif
+
+
+    </div>
+</div>
 </body>
 </html>

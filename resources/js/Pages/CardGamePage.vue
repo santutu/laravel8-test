@@ -1,15 +1,18 @@
 <template>
     <app-layout title="TestPage Title">
+
         <template #header>
-            <div class="text-6xl">
-                카드 뽑기 !!! 카드 클릭해 !!
+            <div>
+                <Link class="big-text" :href="route('chatroom')">채팅 하러가기 ㅇㅅㅇ</Link>
+
+                <div class="text-6xl">
+                    카드 뽑기 !!! 카드 클릭해 !!
+                </div>
             </div>
         </template>
 
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <Link :href="route('dashboard')">dashboard</Link>
-            <Link :href="route('test2')">test2</Link>
 
             <div class="flex flex-row flex-wrap">
                 <div @mouseup.prevent="openCard($event,card)" class="card m-2"

@@ -1,5 +1,12 @@
 <template>
     <div>
+
+        <div>
+            <Link :href="route('sample')">sample</Link>
+            <Link :href="route('test')">testpage</Link>
+        </div>
+
+
         <form>
             <div>
                 <input v-model="form.title">
@@ -23,22 +30,27 @@
 </style>
 
 <script lang="ts">
-import {defineComponent} from 'vue'
+import {defineComponent, reactive} from 'vue'
 import {useForm} from '@inertiajs/inertia-vue3';
 import Content from "../models/Content";
-
+import {Link} from '@inertiajs/inertia-vue3';
+import User from "../models/User";
 
 export default defineComponent({
-                                   components: {},
+                                   components: {Link},
                                    props: {},
-                                   mounted() {
-                                   },
 
                                    setup() {
 
-                                       const form = useForm(new Content().toPlain());
+                                       const form = useForm(new Content("1", "2").toPlain());
 
                                        return {form}
-                                   }
+                                   },
+
+                                   mounted() {
+
+                                   },
+
+
                                })
 </script>
