@@ -26,8 +26,10 @@
                 </div>
 
                 <div>
-                    <input @keyup.enter.prevent="sendMessage" type="text" v-model="chatData.message">
-                    <button class="btn" type="button" @mouseup.prevent="sendMessage">보내기</button>
+                    <input @keypress.enter.prevent="sendMessage" type="text" v-model="chatData.message">
+                    <button class="btn" type="button" @mouseup.prevent="sendMessage">
+                        보내기({{ leaveSecond }})
+                    </button>
 
                 </div>
 
@@ -62,6 +64,7 @@ import Chat from "../models/Chat";
 import axios from "axios";
 import Content from "../models/Content";
 import {classToPlain, plainToClass} from "class-transformer";
+import SetInterval from "../libs/SetInterval";
 
 export default defineComponent({
                                    components: {Link},
@@ -87,9 +90,28 @@ export default defineComponent({
                                            chatList, chatData, userList
                                        }
                                    },
+                                   data() {
+                                       const sendThrottle = 5
+                                       return {
+                                           setInterval: new SetInterval(),
+                                           sendThrottle,
+                                           leaveSecond: 0,
+                                       }
+                                   },
 
                                    methods: {
-                                       sendMessage() {
+
+
+                                       sendMessage: function () {
+                                           if (this.leaveSecond > 0) {
+                                               return;
+                                           }
+                                           this.leaveSecond = this.sendThrottle;
+
+                                           this.setInterval.interval(1000).until(this.sendThrottle * 1000).cb(() => {
+                                               if (this.leaveSecond > 0)
+                                                   this.leaveSecond -= 1;
+                                           }).start();
 
                                            if (this.chatData.message.length === 0) {
                                                return;
@@ -108,6 +130,7 @@ export default defineComponent({
 
 
                                            this.chatData.message = "";
+
 
                                        }
 
@@ -164,9 +187,7 @@ export default defineComponent({
                                            });
                                    },
 
-                                   data() {
-                                       return {}
-                                   },
+
                                    computed: {},
 
 
